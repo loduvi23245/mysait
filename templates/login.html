@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Вход - DevStudio{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2 style="text-align: center; margin-bottom: 2rem; background: linear-gradient(135deg, #6366f1, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Вход</h2>
+    <form method="POST">
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required placeholder="your@email.com">
+        </div>
+        <div class="form-group">
+            <label for="password">Пароль</label>
+            <input type="password" id="password" name="password" required placeholder="••••••••">
+        </div>
+        <div class="form-group" style="display: flex; align-items: center; gap: 0.5rem;">
+            <input type="checkbox" id="remember" name="remember" style="width: auto;">
+            <label for="remember" style="margin: 0; color: #94a3b8;">Запомнить меня</label>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Войти</button>
+    </form>
+    <p style="text-align: center; margin-top: 1.5rem; color: #94a3b8;">
+        Нет аккаунта? <a href="{{ url_for('register') }}" style="color: #6366f1;">Зарегистрироваться</a>
+    </p>
+</div>
+{% endblock %}

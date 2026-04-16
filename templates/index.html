@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}DevStudio - Разработка программного обеспечения{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="container">
+        <h1>Профессиональная разработка ПО</h1>
+        <p>От Telegram ботов до полноценных веб-сервисов и программ. Реализую ваши идеи в код!</p>
+        <a href="#services" class="btn btn-primary">Смотреть услуги</a>
+    </div>
+</section>
+
+<section id="services" class="services">
+    <div class="container">
+        <h2 class="section-title">Каталог услуг</h2>
+        <div class="services-grid">
+            {% for service in services %}
+            <div class="service-card">
+                <div class="service-icon">{{ service.icon }}</div>
+                <h3>{{ service.title }}</h3>
+                <p>{{ service.description }}</p>
+                <div class="service-price">{{ "%.0f"|format(service.price) }} ₽</div>
+                <a href="{{ url_for('create_order', service_id=service.id) }}" class="btn btn-primary">Заказать</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

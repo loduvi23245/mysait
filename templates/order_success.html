@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Заказ создан - DevStudio{% endblock %}
+
+{% block content %}
+<div class="form-container" style="text-align: center;">
+    <div style="font-size: 4rem; margin-bottom: 1rem;">🎉</div>
+    <h2 style="background: linear-gradient(135deg, #6366f1, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 1rem;">Заказ успешно создан!</h2>
+    <p style="color: #94a3b8; margin-bottom: 2rem;">
+        Номер заказа: <strong>#{{ order.id }}</strong><br>
+        Услуга: <strong>{{ order.service.title }}</strong>
+    </p>
+    
+    {% if order.payment_status == 'pending' %}
+    <div style="background: rgba(245, 158, 11, 0.1); border: 1px solid #f59e0b; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem;">
+        <p style="color: #f59e0b; margin-bottom: 1rem;">⏳ Ожидается оплата</p>
+        <p style="color: #94a3b8; font-size: 0.9rem;">
+            После подтверждения оплаты заказ будет принят в работу.
+        </p>
+    </div>
+    {% endif %}
+    
+    <div style="display: flex; gap: 1rem; justify-content: center;">
+        {% if current_user.is_authenticated %}
+        <a href="{{ url_for('profile') }}" class="btn btn-primary">Мои заказы</a>
+        {% endif %}
+        <a href="{{ url_for('index') }}" class="btn btn-secondary">Вернуться на главную</a>
+    </div>
+</div>
+{% endblock %}

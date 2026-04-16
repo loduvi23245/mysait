@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Профиль - DevStudio{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+        <h1 style="background: linear-gradient(135deg, #6366f1, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Личный кабинет</h1>
+        <div style="color: #94a3b8;">
+            <span style="font-size: 1.1rem;">{{ current_user.email }}</span>
+        </div>
+    </div>
+    
+    <h2 style="margin-bottom: 1.5rem; color: var(--text-primary);">Мои заказы</h2>
+    
+    {% if orders %}
+        <div class="orders-list">
+            {% for order in orders %}
+            <div class="order-card">
+                <div class="order-header">
+                    <div>
+                        <h3 style="margin-bottom: 0.5rem;">Заказ #{{ order.id }} - {{ order.service.title }}</h3>
+                        <p style="color: #94a3b8; font-size: 0.9rem;">
+                            Создан: {{ order.created_at.strftime('%d.%m.%Y в %H:%M') }}
+                        </p>
+                        {% if order.description %}
+                        <p style="color: var(--text-secondary); margin-top: 0.5rem;">
+                            {{ order.description[:100] }}{% if order.description|length > 100 %}...{% endif %}
+                        </p>
+                        {% endif %}
+                    </div>
+                    <div style="text-align: right;">
+                        <span class="order-status {{ order.status }}">{{ order.status }}</span>
+                        <p style="color: var(--primary-color); font-weight: bold; margin: 0.5rem 0 0 0;">
+                            {{ "%.0f"|format(order.service.price) }} ₽
+                        </p>
+                    </div>
+                </div>
+                
+                {% if order.payment_id %}
+                <div style="border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 1rem; margin-top: 1rem;">
+                    <p style="color: #94a3b8; font-size: 0.85rem;">
+                        ID платежа: <code style="background: rgba(0, 0, 0, 0.3); padding: 0.2rem 0.5rem; border-radius: 4px;">{{ order.payment_id }}</code>
+                    </p>
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div style="text-align: center; padding: 4rem 2rem; background: var(--card-bg); border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1);">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">📦</div>
+            <p style="color: #94a3b8; margin-bottom: 1.5rem;">У вас пока нет заказов</p>
+            <a href="{{ url_for('index') }}" class="btn btn-primary">Перейти к каталогу услуг</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
